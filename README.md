@@ -11,6 +11,7 @@ Files:
   - Car body
   - Wheel rubber
   - Wheel
-  - Car
+  - Car<br>
+There is also a function to change the type of wheel rubber.<br>
 - symbol_check.py. It return information about the correct sequence. it includes class Stask.
-There is also a function to change the type of wheel rubber.
+
