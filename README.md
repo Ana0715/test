@@ -14,4 +14,6 @@ Files:
   - Car<br>
 There is also a function to change the type of wheel rubber.<br>
 - symbol_check.py. It return information about the correct sequence. it includes class Stask.
+- rnp.py. Class for performing operations on numbers using Reverse Polish Notation.
+- queue.py. Class for adding and removing values ​​in a list - FIFO.
 
