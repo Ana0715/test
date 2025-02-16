@@ -23,19 +23,22 @@ class Node:
 class Graph:
     def __init__(self, root):
         self._root = root
-        self.visited_dfs = set()
-        self.visited_bfs = set()
-        self.queue = deque()
 
-    def dfs(self, graph, vertex):
+    def dfs(self, graph, vertex, visited_dfs=None):
+        if visited_dfs == None:
+            self.visited_dfs = set()
+
         if vertex not in self.visited_dfs:
             print (vertex, end='\n')
             self.visited_dfs.add(vertex)
 
             for neighbor in graph[vertex]:
-                self.dfs(graph, neighbor)
+                self.dfs(graph, neighbor, self.visited_dfs)
 
     def bfs(self, graph, vertex_start):
+        self.visited_bfs = set()
+        self.queue = deque()
+
         self.queue.append(vertex_start)
         self.visited_bfs.add(vertex_start)
 
@@ -60,12 +63,15 @@ graph_test = {
     3: [0],
     4: [2]
 }
-print('bfs:')
-g_test.bfs(graph_test, 0)
 print('dfs:')
 g_test.dfs(graph_test, 0)
-
-
+print('dfs 2:')
+g_test.dfs(graph_test, 0)
+print('bfs:')
+g_test.bfs(graph_test, 0)
+print('bfs 2:')
+g_test.bfs(graph_test, 0)
+print(end='\n')
 
 
 #1
