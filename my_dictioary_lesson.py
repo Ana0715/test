@@ -2,43 +2,48 @@ class MyDict():
     '''
     Класс для создания словаря
     '''
-    def __init__(self, dictionary:dict=None) -> None:
+    def __init__(self, dictionary=None) -> None:
         '''
-        Создаёт словарь, если его не было
-        Если он есть, используется указанный
+        Создаёт список кортежей
         '''
-        self.dictionary: dict = dictionary if dictionary else {}
+        self.dictionary = dictionary if dictionary else []
 
 
-    def __getitem__(self, key):
+    def __getitem__(self, wanted_key):
         '''
         Возвращает значение по ключу
-        :return: Any: Значение, если ключ найден в словаре, иначе None
+        :return: Any: Значение, если ключ найден, иначе None
         '''
-        return self.dictionary.get(key, None)
+        for (key, value) in self.dictionary:
+            return value if wanted_key == key else None
 
 
-    def __setitem__(self, key, value) -> None:
+    def __setitem__(self, new_key, new_value) -> None:
         '''
-        Добавляет в словарь пару {ключ : значение}
+        Добавляет в словарь пару {ключ : значение} или меняет текущее значение по ключу
         '''
-        self.dictionary[key] = value
+        i = 0
+        for (key, value) in self.dictionary:
+            if new_key == key:
+                self.dictionary[i] = (new_key, new_value)
+                return self.dictionary
+            i += 1
+        self.dictionary.append((new_key, new_value))
 
 
-    def __delitem__(self, key) -> None:
+    def __delitem__(self, del_key) -> None:
         '''
-        Удаляет и возвращает значение по ключу
+        Удаляет значение по ключу
         '''
-        if self.dictionary[key]:
-            self.dictionary.pop(key)
+        self.dictionary = [(key, value) for (key, value) in self.dictionary if key != del_key]
 
 
-    def __contains__(self, key) -> bool:
+    def __contains__(self, found_key) -> bool:
         '''
         Возвращает True или False
         :return: bool: True, если текущий ключ есть в списке, False, если его нет
         '''
-        return key in self.dictionary
+        return [found_key for (key, value) in self.dictionary if found_key == key]
 
 
     def keys(self) -> list:
@@ -46,7 +51,7 @@ class MyDict():
         Возвращает все ключи, находящиеся в словаре
         :return: list: Список ключей словаря
         '''
-        return [key for key in self.dictionary.keys()]
+        return [key for (key, value) in self.dictionary]
         
 
     def values(self) -> list:
@@ -54,7 +59,7 @@ class MyDict():
         Возвращает все значения, находящиеся в словаре
         :return: list: Список значений словаря
         '''
-        return [value for value in self.dictionary.values()]
+        return [value for (key, value) in self.dictionary]
         
 
     def items(self) -> list[tuple]:
@@ -62,7 +67,7 @@ class MyDict():
         Возвращает все ключи и значения, находящиеся в словаре
         :return: list[tuple]: Список кортежей ключей и значений словаря
         '''
-        return [(key, value) for key, value in self.dictionary.items()]
+        return [(key, value) for (key, value) in self.dictionary]
         
 
     def __str__(self) -> str:
@@ -98,4 +103,5 @@ print(my_dict_2.keys())  # Вернет ['name', 'city']
 print(my_dict_2.values())  # Вернет ['Kate', 'Kaliningrad (Konigsberg)']
 print('city' in my_dict_2)  # Вернет True
 print('name' in my_dict_2)  # Вернет True
+print('age' in my_dict_2)  # Вернет False
 
